@@ -7,6 +7,11 @@ const userController = {};
 userController.createUser = async (req, res) => {
   try {
     const { email, name, password } = req.body;
+
+    if (!email || !name || !password) {
+      throw new Error("이름, 이메일, 비밀번호는 필수 입력 사항입니다.");
+    }
+
     const user = await User.findOne({ email: email });
     if (user) {
       throw new Error("이미 가입이 된 유저입니다.");
@@ -18,7 +23,7 @@ userController.createUser = async (req, res) => {
     await newUser.save();
     res.status(200).json({ status: "success" });
   } catch (error) {
-    res.status(400).json({ status: "fail", error: error.message });
+    res.status(400).json({ status: "fail", message: error.message });
   }
 };
 

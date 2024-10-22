@@ -11,9 +11,10 @@ const taskSchema = Schema(
       type: Boolean,
       required: true,
     },
-    isUrgent: {
-      type: Boolean,
-      default: false,
+    author: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
     },
   },
   { timestamps: true, versionKey: false }
